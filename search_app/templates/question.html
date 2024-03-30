@@ -1,9 +1,49 @@
 <!DOCTYPE html>
+{% load custom_filters %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Website Layout</title>
     <link rel="stylesheet" href="static/style.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Autocomplete script -->
+    <script>
+        $(document).ready(function() {
+            $('#search_query').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: '/autocomplete/',
+                        dataType: 'json',
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item,
+                                    value: item
+                                };
+                            }));
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function(event, ui) {
+                    $('#search_query').val(ui.item.value);
+                    return false;
+                }
+            }).data('ui-autocomplete')._renderItem = function(ul, item) {
+                var regex = new RegExp('(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'ig');
+                var label = item.label.replace(regex, '<strong>$1</strong>');
+                return $('<li>').append('<div>' + label + '</div>').appendTo(ul);
+            };
+        });
+    </script>      
+    
 </head>
 <body>
     <div class="ui-container">
@@ -32,8 +72,7 @@
             <div class="search-box">
                 <form class="d-flex" method="get">
                     {% csrf_token %}
-                    {{ form.search_query.label_tag }}
-                    {{ form.search_query }}
+                    <input type="text" id="search_query" name="search_query" placeholder="Search...">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -50,7 +89,11 @@
             <p>{{ faq.question }}</p>
             
             <h3>Answer:</h3>
-            <p>{{ faq.answer }}</p>
+            <ul>
+                {% for point in faq.answer|split_by_dot %}
+                <li>{{ point }}</li>
+                {% endfor %}
+            </ul> 
             
             <h3>Reference:</h3>
             <p><a href="{{ faq.reference }}">{{ faq.reference }}</a></p>
