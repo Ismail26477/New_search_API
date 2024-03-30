@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Layout</title>
+    <link rel="stylesheet" href="static/style.css"> 
+</head>
+<body>
+    <div class="ui-container">
+    <!-- Top navigation bar -->
+        <div class="topnav">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <!-- Left sidebar -->
+        <div class="left-sidebar">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+
+        <!-- Right sidebar -->
+        <div class="right-sidebar">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+
+        <!-- Main content area -->
+        <div class="content">
+            <div class="faq-box">
+            <!-- Search button and output box -->
+            <div class="search-box">
+                <form class="d-flex" method="get">
+                    {% csrf_token %}
+                    {{ form.search_query.label_tag }}
+                    {{ form.search_query }}
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+            
+            <!-- Output boxes for individual FAQ fields -->
+            {% if faqs %}
+    <div class="output-box">
+        {% for faq in faqs %}
+        <div class="faq-box">
+            <h3>ID:</h3>
+            <p>{{ faq.id }}</p>
+            
+            <h3>Question:</h3>
+            <p>{{ faq.question }}</p>
+            
+            <h3>Answer:</h3>
+            <p>{{ faq.answer }}</p>
+            
+            <h3>Reference:</h3>
+            <p><a href="{{ faq.reference }}">{{ faq.reference }}</a></p>
+            
+            {% if faq.image %}
+                <h3>Image:</h3>
+                <img src="{{ faq.image }}" alt="{{ faq.image }}">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="output-box">
+        {% if message %}
+            {{ message }}
+        {% else %}
+            No Answer found
+        {% endif %}
+    </div>
+{% endif %}
+
+        </div>
+    </div>
+</body>
+</html>

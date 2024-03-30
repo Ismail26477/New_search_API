@@ -1,0 +1,76 @@
+/* Basic styles for layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top navigation bar styles */
+.topnav {
+    background-color: #333;
+    color: #fff;
+    overflow: hidden;
+} 
+
+.topnav a {
+    float: left;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Left sidebar styles */
+.left-sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: #1877F2;
+    float: left;
+}
+
+/* Right sidebar styles */
+.right-sidebar {
+    width: 220px;
+    height: 100%;
+    background-color: #1877F2;
+    float: right;
+}
+
+/* Content area styles */
+.content {
+    margin-left: 220px; /* Adjust based on sidebar widths */
+    margin-right: 220px; /* Adjust based on sidebar widths */
+    padding: 20px;
+}
+
+/* Search button and output box styles */
+.search-box {
+    margin-top: 20px;
+    text-align: center; /* Center align the content */
+}
+
+/* Style for search input and button */
+.search-box input[type="text"] {
+    width: 60%; /* Set width to 80% of the search box */
+    padding: 10px; /* Add padding for better appearance */
+    margin-right: 10px; /* Add a small margin to the right of the input */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.search-box button {
+    width: 18%; /* Set width to 18% of the search box */
+    padding: 10px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.output-box {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    height: 400px;  /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.faq-box {
+    margin-bottom: 20px;
+}
