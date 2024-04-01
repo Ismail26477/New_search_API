@@ -5,20 +5,106 @@ body {
     padding: 0;
 }
 
-/* Top navigation bar styles */
-.topnav {
-    background-color: #333;
-    color: #fff;
-    overflow: hidden;
-} 
+/* Logo styles */
+.logo {
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 20px; /* Add some space to the right of the logo */
+}
 
+/* Top navigation bar styles */
+/* Top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #1877F2;
+    font-family: Arial;
+}
+
+/* Links inside the top navigation bar */
 .topnav a {
     float: left;
-    color: #fff;
+    font-size: 16px;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+
+.topnav a.home-tab {
+    margin-left: 183px;
+}
+
+/* Dropdown container */
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown button {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    left: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Mega Menu header */
+.dropdown-content .header {
+    background: red;
+    padding: 16px;
+    color: white;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Create three equal columns */
+.column {
+    float: left;
+    width: 31.99%;
+    padding: 10px;
+    background-color: #ccc;
+    height: 250px;
+}
+
+/* Style links inside the columns */
+.column a {
+    float: none;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+/* Add a background color on hover */
+.column a:hover {
+    background-color: #ddd;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 
 /* Left sidebar styles */
 .left-sidebar {
@@ -32,8 +118,28 @@ body {
 .right-sidebar {
     width: 220px;
     height: 100%;
-    background-color: #1877F2;
+    background-color: #1877F2;  /* Set the background color */
     float: right;
+}
+/* ... (previous styles) ... */
+
+/* Top navigation bar styles in right sidebar */
+.right-sidebar .topnav {
+    background-color: #333;
+    color: #fff;
+    overflow: hidden;
+}
+
+.right-sidebar .topnav a {
+    display: block; /* Make each link a block element */
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+}
+
+.right-sidebar .topnav a:hover {
+    background-color: #555; /* Change background color on hover */
 }
 
 /* Content area styles */
@@ -51,9 +157,10 @@ body {
 
 /* Style for search input and button */
 .search-box input[type="text"] {
-    width: 60%; /* Set width to 80% of the search box */
+    width: 80%; /* Set width to 80% of the search box */
     padding: 10px; /* Add padding for better appearance */
     margin-right: 10px; /* Add a small margin to the right of the input */
+    border: 1.5px solid #000000;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
@@ -65,7 +172,7 @@ body {
 
 .output-box {
     margin-top: 20px;
-    border: 1px solid #ccc;
+    border: 1.5px solid #000000;
     padding: 20px;
     height: 400px;  /* Set a fixed height */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -73,4 +180,32 @@ body {
 
 .faq-box {
     margin-bottom: 20px;
+}
+
+.team-container {
+    width: 1000px;
+    margin: -50px auto;
+    border: 1px solid #000000;
+    padding: 20px;
+    text-align: center;
+}
+
+.team-tab {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.team-content {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.team-tab:hover+.team-content {
+    display: block;
 }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 {% load custom_filters %}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Website Layout</title>
-    <link rel="stylesheet" href="static/style.css"> 
+    <link rel="stylesheet" href="{% static 'style.css' %}"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -42,28 +42,125 @@
                 return $('<li>').append('<div>' + label + '</div>').appendTo(ul);
             };
         });
+
+        function toggleCurtainMenu() {
+            const curtainMenu = document.querySelector('.curtain-menu');
+            
+            if (curtainMenu.style.left === '-300px') {
+                curtainMenu.style.left = '0';
+            } else {
+                curtainMenu.style.left = '-300px';
+            }
+        }
     </script>      
     
 </head>
 <body>
+
+    
     <div class="ui-container">
     <!-- Top navigation bar -->
-        <div class="topnav">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
+    <div class="topnav">
+        
+        <a href="#" class="home-tab">Home</a>
+        <a href="#">About</a>
+        <!-- Services Dropdown -->
+        <div class="dropdown">
+            <button>Services</button>
+            <div class="dropdown-content">
+                <div class="header">
+                    <h2>Mega Menu</h2>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <h3>Category 1</h3>
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                    <div class="column">
+                        <h3>Category 2</h3>
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                    <div class="column">
+                        <h3>Category 3</h3>
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <a href="#">Contact</a>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
 
         <!-- Left sidebar -->
         <div class="left-sidebar">
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="topnav">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="{% static 'images/th.jpeg' %}" alt="Logo" class="logo"><br><br>
+                <a href="#" >Home</a><br><br><br>
+                <a href="#">About</a><br><br><br>
+                <a href="#">Services</a><br><br><br>
+                <a href="#">Contact</a><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>        
         </div>
 
         <!-- Right sidebar -->
-        <div class="right-sidebar">
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="right-sidebar" style="width: 200px; float: right;">
+            <!-- Top navigation bar in right sidebar -->
+            <div class="topnav">
+                
+                <div class="curtain-menu-container">
+                    <div class="curtain-menu" style="position: absolute; right: -300px; width: 300px; background-color: #fff; height: 100%; transition: right 0.3s ease;">
+                        <div class="curtain-menu-content" style="padding: 20px;">
+                            <!-- Content for the Home tab -->
+                            <h3>Home</h3>
+                            <p id="curtainContent" style="display: none;">Welcome to our website!</p>
+                            <button onclick="closeCurtainMenu()" style="margin-top: 20px;">Close</button>
+                        </div>
+                    </div>
+                    <div class="curtain-menu-tab" style="display: block; padding: 10px 15px; background-color: #333; color: #fff; text-align: left; cursor: pointer; margin-bottom: 10px;" onclick="toggleCurtainMenu()">Home</div>
+                </div>
+                <br>
+                <a href="#" style="margin-bottom: 20px;">About</a><br><br><br><br>
+                <a href="#" style="margin-bottom: 20px;">Services</a><br><br><br><br>
+                <a href="#" style="margin-bottom: 20px;">Contact</a><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
         </div>
+
+        <script>
+            function toggleCurtainMenu() {
+                const curtainMenu = document.querySelector('.curtain-menu');
+                const curtainContent = document.getElementById('curtainContent');
+                
+                if (curtainMenu.style.right === '-300px' || curtainMenu.style.right === '') {
+                    curtainMenu.style.right = '0px';
+                    curtainContent.style.display = 'block';
+                } else {
+                    curtainMenu.style.right = '-300px';
+                    curtainContent.style.display = 'none';
+                }
+            }
+
+            function closeCurtainMenu() {
+                const curtainMenu = document.querySelector('.curtain-menu');
+                const curtainContent = document.getElementById('curtainContent');
+
+                curtainMenu.style.right = '-300px';
+                curtainContent.style.display = 'none';
+            }
+        </script>
+
+
 
         <!-- Main content area -->
         <div class="content">
@@ -76,46 +173,64 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-            
+                
             <!-- Output boxes for individual FAQ fields -->
             {% if faqs %}
-    <div class="output-box">
-        {% for faq in faqs %}
-        <div class="faq-box">
-            <h3>ID:</h3>
-            <p>{{ faq.id }}</p>
-            
-            <h3>Question:</h3>
-            <p>{{ faq.question }}</p>
-            
-            <h3>Answer:</h3>
-            <ul>
-                {% for point in faq.answer|split_by_dot %}
-                <li>{{ point }}</li>
+            <div class="output-box">
+                {% for faq in faqs %}
+                <div class="faq-box"> 
+                    <h3>Question:</h3>
+                    <p>{{ faq.question }}</p>
+                    
+                    <h3>Answer:</h3>
+                    <ul>
+                        {% for point in faq.answer|split_by_dot %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul> 
+                    
+                    <h3>Reference:</h3>
+                    <p><a href="{{ faq.reference }}">{{ faq.reference }}</a></p>
+                    
+                    {% if faq.image %}
+                        <h3>Image:</h3>
+                        <img src="{{ faq.image }}" alt="{{ faq.image }}">
+                    {% endif %}
+                </div>
                 {% endfor %}
-            </ul> 
-            
-            <h3>Reference:</h3>
-            <p><a href="{{ faq.reference }}">{{ faq.reference }}</a></p>
-            
-            {% if faq.image %}
-                <h3>Image:</h3>
-                <img src="{{ faq.image }}" alt="{{ faq.image }}">
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-{% else %}
-    <div class="output-box">
-        {% if message %}
-            {{ message }}
+            </div>
         {% else %}
-            No Answer found
+            <div class="output-box">
+                {% if message %}
+                    {{ message }}
+                {% else %}
+                    No Answer found
+                {% endif %}
+            </div>
         {% endif %}
-    </div>
-{% endif %}
 
         </div>
     </div>
+    <div class="ui-container">
+
+        <div class="content">
+
+            <div class="team-container">
+                <!-- Meet the Team Tab -->
+                <div class="team-tab">Meet the Team</div>
+
+                <!-- Content for Meet the Team -->
+                <div class="team-content">
+                    <h2>Our Team</h2>
+                    <p>John - CEO</p>
+                    <p>Jane - Designer</p>
+                    <p>Emily - Developer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
