@@ -27,7 +27,16 @@ def question(request):
                 
                 # Split the answer by points and replace newline characters with <br> tags
                 for faq in faqs:
-                    faq['answer'] = '.'.join(faq['answer'].split('. '))
+                    faq['answer'] = '*'.join(faq['answer'].split('* '))
+
+                    if 'https://' in faq['reference']:
+                        parts = faq['reference'].split(' ')
+                        faq['reference_label'] = ' '.join(parts[:-1])
+                        faq['reference_link'] = parts[-1]
+                    else:
+                        faq['reference_label'] = faq['reference']
+                        faq['reference_link'] = None
+                
                 
                 if not faqs:
                     return render(request, 'question.html', {'form': form, 'message': 'No matching FAQs found.'})
